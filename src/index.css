@@ -1,0 +1,319 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+@layer base {
+  body {
+    @apply bg-slate-50 text-slate-900;
+  }
+}
+
+/* Custom scrollbar for desktop feel */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-slate-100;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-slate-300 rounded-full hover:bg-slate-400 transition-colors;
+}
+
+@media print {
+  /* Hide everything by default */
+  body * {
+    visibility: hidden !important;
+  }
+  
+  /* Show only the print container and its children */
+  #print-container, #print-container *,
+  #print-report-container, #print-report-container *,
+  #direct-print-container, #direct-print-container *,
+  .print-only, .print-only * {
+    visibility: visible !important;
+  }
+
+  /* Position the print container at the top-left */
+  #print-container, #print-report-container, #direct-print-container, .print-only {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: white !important;
+    color: black !important;
+    z-index: 9999 !important;
+  }
+
+  /* Ensure the hidden parent div doesn't hide the print container */
+  .hidden, [hidden] {
+    display: block !important;
+    visibility: hidden !important;
+  }
+  
+  .hidden > #print-container,
+  .hidden > #print-report-container {
+    visibility: visible !important;
+  }
+
+  @page {
+    size: auto;
+    margin: 0;
+  }
+}
+
+/* Print Layout Styles */
+.print-layout {
+  background: white;
+  color: #000000;
+  font-family: 'Inter', sans-serif;
+  line-height: 1.4;
+}
+
+.print-layout.thermal {
+  width: 80mm;
+  font-family: 'Arial Narrow', Arial, sans-serif;
+  font-size: 11px;
+  line-height: 1.2;
+}
+
+.print-layout.a4 {
+  width: 210mm;
+  padding: 10mm;
+  font-size: 12px;
+}
+
+.print-layout.compact {
+  width: 58mm;
+  font-size: 10px;
+  line-height: 1.1;
+}
+
+.print-layout.detailed {
+  width: 210mm;
+  padding: 10mm;
+  font-size: 11px;
+}
+
+.thermal-print .invoice-title-box {
+  border: 1.5px solid #000000;
+  border-radius: 6px;
+  padding: 4px 20px;
+  display: inline-block;
+}
+
+.thermal-print .table-header-black {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.thermal-print .border-b-solid {
+  border-bottom: 1px solid #000000;
+}
+
+.thermal-print .border-t-solid {
+  border-top: 1px solid #000000;
+}
+
+.thermal-print .border-b-dashed {
+  border-bottom: 1px dashed #000000;
+}
+
+.thermal-print .border-t-dashed {
+  border-top: 1px dashed #000000;
+}
+
+.thermal-print * {
+  box-sizing: border-box;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.thermal-print .font-black {
+  font-weight: 900 !important;
+}
+
+.thermal-print .font-bold {
+  font-weight: 700 !important;
+}
+
+.thermal-print .divider-dashed {
+  border-top: 1.5px dashed #000000;
+  width: 100%;
+  margin: 4px 0;
+}
+
+.thermal-print .divider-solid {
+  border-top: 1.5px solid #000000;
+  width: 100%;
+  margin: 4px 0;
+}
+
+.thermal-print table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.thermal-print th {
+  text-align: left;
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: 9px;
+  padding: 2px 0;
+}
+
+.thermal-print td {
+  padding: 2px 0;
+  vertical-align: top;
+}
+
+.thermal-print .text-right {
+  text-align: right;
+}
+
+.thermal-print .text-center {
+  text-align: center;
+}
+
+.thermal-print .uppercase {
+  text-transform: uppercase;
+}
+
+.thermal-print .italic {
+  font-style: italic;
+}
+
+.thermal-print .tracking-wider {
+  letter-spacing: 0.05em;
+}
+
+.thermal-print .tracking-widest {
+  letter-spacing: 0.1em;
+}
+
+.thermal-print .leading-tight {
+  line-height: 1.1;
+}
+
+.thermal-print .leading-none {
+  line-height: 1;
+}
+
+.thermal-print .space-y-0\.5 > * + * {
+  margin-top: 2px;
+}
+
+.thermal-print .space-y-1 > * + * {
+  margin-top: 4px;
+}
+
+.thermal-print .space-y-2 > * + * {
+  margin-top: 8px;
+}
+
+.thermal-print .flex {
+  display: flex;
+}
+
+.thermal-print .justify-between {
+  justify-content: space-between;
+}
+
+.thermal-print .items-center {
+  align-items: center;
+}
+
+.thermal-print .flex-col {
+  flex-direction: column;
+}
+
+.thermal-print .items-end {
+  align-items: flex-end;
+}
+
+.thermal-print .w-full {
+  width: 100%;
+}
+
+.thermal-print .mb-0\.5 {
+  margin-bottom: 2px;
+}
+
+.thermal-print .my-0\.5 {
+  margin: 2px 0;
+}
+
+.thermal-print .my-1 {
+  margin: 4px 0;
+}
+
+.thermal-print .mt-2 {
+  margin-top: 8px;
+}
+
+.thermal-print .p-0 {
+  padding: 0;
+}
+
+.thermal-print .py-1 {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.thermal-print .text-lg {
+  font-size: 14px;
+}
+
+.thermal-print .text-sm {
+  font-size: 12px;
+}
+
+.thermal-print .text-xs {
+  font-size: 9px;
+}
+
+.thermal-print .text-\[10px\] {
+  font-size: 10px;
+}
+
+.thermal-print .text-\[11px\] {
+  font-size: 11px;
+}
+
+.thermal-print .text-\[9px\] {
+  font-size: 9px;
+}
+
+.thermal-print .text-\[8px\] {
+  font-size: 8px;
+}
+
+.thermal-print .text-\[7px\] {
+  font-size: 7px;
+}
+
+.thermal-print .text-\[\#E91E63\] {
+  color: #E91E63 !important;
+}
+
+@media print {
+  .thermal-print .text-\[\#E91E63\] {
+    color: #E91E63 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
+
+.thermal-print .text-red-600 {
+  color: #000000 !important; /* Force black for other red text in thermal printing */
+}

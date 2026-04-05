@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Connecting to Google Drive...</title>
+  <style>
+    body { font-family: sans-serif; display: flex; items-center; justify-content: center; height: 100vh; margin: 0; background: #f8fafc; color: #64748b; }
+    .loader { border: 3px solid #f3f3f3; border-top: 3px solid #0ea5e9; border-radius: 50%; width: 24px; height: 24px; animate: spin 1s linear infinite; margin-right: 12px; }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+  <div class="loader"></div>
+  <p>Connecting, please wait...</p>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get('code');
+    const error = params.get('error');
+
+    if (window.opener) {
+      if (code) {
+        window.opener.postMessage({ type: 'GOOGLE_AUTH_CODE', code }, window.location.origin);
+      } else if (error) {
+        window.opener.postMessage({ type: 'GOOGLE_AUTH_ERROR', error }, window.location.origin);
+      }
+      setTimeout(() => window.close(), 500);
+    } else {
+      window.location.href = '/?code=' + (code || '') + '&error=' + (error || '');
+    }
+  </script>
+</body>
+</html>
